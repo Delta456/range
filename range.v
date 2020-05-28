@@ -14,7 +14,7 @@ pub struct FloatRange {
 
 }
 
-pub fn range(range IntRange) []int {
+pub fn int(range IntRange) []int {
 	mut arr := []int{}
 
 	if range.step == 0 {
@@ -34,7 +34,7 @@ pub fn range(range IntRange) []int {
 	return arr
 }
 
-pub fn range_float(float FloatRange) []f32 {
+pub fn float(float FloatRange) []f32 {
 	mut arr := []f32{}
 
 	if float.step == 0 {
