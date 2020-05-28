@@ -1,0 +1,17 @@
+*
+!*/
+!*.*
+*.exe
+*.o
+*.so
+.*.c
+*.tmp.c
+*.obj
+*.exp
+*.ilk
+*.pdb
+*.dll
+*.lib
+*.bak
+a.out
+.noprefix.vrepl_temp

@@ -1,0 +1,64 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout V
+      uses: actions/checkout@v2
+      with:
+        repository: vlang/v
+    - name: Checkout range
+      uses: actions/checkout@v2
+      with:
+        path: vlib/range
+    - name: Build V
+      run: |
+        make
+        sudo ./v symlink
+    - name: Build example
+      run: |
+        cd ./vlib/range/range/
+        v test range_test.v
+
+  macos:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout V
+      uses: actions/checkout@v2
+      with:
+        repository: vlang/v
+    - name: Checkout range
+      uses: actions/checkout@v2
+      with:
+        path: vlib/range
+    - name: Build V
+      run: |
+        make
+        ./v symlink
+    - name: Build example
+      run: |
+        cd ./vlib/range/
+        v test range_test.v
+
+  windows-msvc:
+    runs-on: windows-latest
+    env:
+        VFLAGS: -cc msvc
+    steps:
+    - name: Checkout V
+      uses: actions/checkout@v2
+      with:
+        repository: vlang/v
+    - name: Checkout range
+      uses: actions/checkout@v2
+      with:
+        path: vlib/range
+    - name: Build V
+      run: .\make.bat -msvc
+    # Don't move applying V directory to PATH, to other steps
+    # otherwise this step and V script won't see V executable.
+    - name: Build example
+      run: .\v.exe run .\vlib\range\range_test.v
