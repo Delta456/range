@@ -20,7 +20,7 @@ jobs:
         sudo ./v symlink
     - name: Build example
       run: |
-        cd ./vlib/range/range/
+        cd ./vlib/range/
         v test range_test.v
 
   macos:
@@ -60,4 +60,4 @@ jobs:
       run: .\make.bat -msvc
     # Don't move applying V directory to PATH, to other steps
     - name: Build example
-      run: .\v.exe run .\vlib\range\range_test.v
+      run: .\v.exe test .\vlib\range\range_test.v
