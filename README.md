@@ -4,7 +4,9 @@ Iterate through the specfic range like Python's `range()` in V.
 
 ## Why
 
-`a..b` in V can only be in increasing order and not in negative order and it also lacks `step` which most people need or want.
+- `a..b` in V can only be in increasing order and not in negative order.
+- Lacks inbuilt `step` which most people need or want.
+- No support for `float`.
 
 ## Features
 
