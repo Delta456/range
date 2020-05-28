@@ -59,6 +59,5 @@ jobs:
     - name: Build V
       run: .\make.bat -msvc
     # Don't move applying V directory to PATH, to other steps
-    # otherwise this step and V script won't see V executable.
     - name: Build example
       run: .\v.exe run .\vlib\range\range_test.v
