@@ -26,7 +26,7 @@ Functionality of Python's `range()` in V.
 - Via `vpkg`
     - `vpkg install range`
 
-### Usage
+## Usage
 
 - `range.int(start:0, stop:value, step:1)` 
   makes a range of `int` with the following parameters:
@@ -91,10 +91,10 @@ fn main() {
 }
 ```
 
-### Acknowledgments
+## Acknowledgments
 
 I thank [@Hungry Blue Dev](https://github.com/hungrybluedev) for giving me the idea of using a `struct` with default parameters so that `range` function for each type can be the same.
 
-### License
+## License
 
 Released under [MIT](LICENSE)
