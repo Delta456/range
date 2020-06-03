@@ -19,7 +19,7 @@ pub fn int(range IntRange) []int {
 
 	if range.step == 0 {
 		eprintln('range: step cannot be zero')
-		exit(0)
+		exit(1)
 	}
     if range.start > range.stop {
 		if range.step <= -1 {
@@ -39,9 +39,13 @@ pub fn float(float FloatRange) []f32 {
 
 	if float.step == 0 {
 		eprintln('range: step cannot be zero')
-		exit(0)
+		exit(1)
 	}
     if float.start > float.stop {
+		if float.step > 0 {
+			eprintln('range: negative float step provided')
+			exit(1)
+		}
 			for i := float.start; i > float.stop; i += float.step {
 			    arr << i
 		    }
