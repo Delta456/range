@@ -6,7 +6,8 @@ Functionality of Python's `range()` in V.
 
 - `a..b` in V can only be in increasing order and not in negative order.
 - Lacks inbuilt `step` which most people need or want.
-- No support for `float`.
+- No support for `float` type.
+- Solution for [vlang/v#5944](https://github.com/vlang/v/issues/5944).
 
 ## Features
 
