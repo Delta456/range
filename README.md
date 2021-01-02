@@ -70,23 +70,23 @@ fn main() {
     }
 
     // using range.float
-    for i in in range.float(stop:10) {
+    for i in range.float(stop:10) {
         println(i)
     }
 
-    for i in in range.float(stop:10, step:0.2) {
+    for i in range.float(stop:10, step:0.2) {
         println(i)
     }
 
-    for i in in range.float(start:0.1, stop:10) {
+    for i in range.float(start:0.1, stop:10) {
         println(i)
     }
 
-    for i in in range.float(start:10, stop:1.0, step:-0.2) {
+    for i in range.float(start:10, stop:1.0, step:-0.2) {
         println(i)
     }
 
-    for i in in range.float(start:-10, stop:-1.0, step:0.2) {
+    for i in range.float(start:-10, stop:-1.0, step:0.2) {
         println(i)
     }
 }
