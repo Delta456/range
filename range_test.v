@@ -1,54 +1,41 @@
 module range
 
-fn assert_arrays_are_equal[T](expected []T, actual []T) {
-	assert expected.len == actual.len
-	for i := 0; i < expected.len; i++ {
-		assert expected[i] == actual[i], 'expected ${expected[i]} at index $[i] but got ${actual}'
+fn test_new_array_inc_int() {
+	expected := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	actual := new[int]().from(0).to(10).step(1).array()
+	assert actual == expected
+}
+
+fn test_struct_array_inc_u8() {
+	expected := [u8(0), 2, 4, 6, 8]
+	actual := Builder[u8]{
+		from: 0
+		to: 10
+		step: 2
+	}.array()
+	assert actual == expected
+}
+
+fn test_new_iterator_dec_f32() {
+	step := f32(0.1)
+	mut curr := f32(1.0)
+	iter := new[f32]().from(1.0).to(-step).step(-step).iterator()
+	for actual in iter {
+		assert actual == curr
+		curr -= step
 	}
 }
 
-fn test_all_args_inc_to_arr() {
-	start := 10
-	stop := 20
-	step := 2
-	expected := [10, 12, 14, 16, 18]
-	mut r := range(start: start, stop: stop, step: step)
-	assert start == r.curr
-	assert stop == r.limit
-	assert step == r.step
-	assert_arrays_are_equal(expected, r.to_array())
-}
-
-fn test_all_args_dec_to_arr() {
-	start := 20.0
-	stop := 10.0
-	step := -2.0
-	expected := [20.0, 18.0, 16.0, 14.0, 12.0]
-	mut r := range(start: start, stop: stop, step: step)
-	assert start == r.curr
-	assert stop == r.limit
-	assert step == r.step
-	assert_arrays_are_equal(expected, r.to_array())
-}
-
-fn test_no_start_inc_to_arr() {
-	stop := 10
-	step := 2
-	expected := [0, 2, 4, 6, 8]
-	mut r := range(stop: stop, step: step)
-	assert stop == r.limit
-	assert step == r.step
-	assert_arrays_are_equal(expected, r.to_array())
-}
-
-fn test_iterable() {
-	start := 0.0
-	step := 0.1
-	stop := 1.0 + step
-	mut expected := 0.0
-	mut r := range(start: start, stop: stop, step: step)
-	for actual in r {
-		assert actual == expected
-		expected += step
+fn test_struct_iterator_inc_f64() {
+	step := 3.1415
+	mut curr := 0.0
+	iter := Builder[f64]{
+		from: 0.0
+		to: 10
+		step: step
+	}.iterator()
+	for actual in iter {
+		assert actual == curr
+		curr += step
 	}
 }
