@@ -39,3 +39,19 @@ fn test_struct_iterator_inc_f64() {
 		curr += step
 	}
 }
+
+fn test_to_array_array_inc_int() {
+	expected := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	actual := to_array(from: int(0), to: 10, step: 1)
+	assert actual == expected
+}
+
+fn test_to_iterator_iterator_dec_f32() {
+	step := f32(0.1)
+	mut curr := f32(1.0)
+	iter := to_iterator[f32](from: f32(1.0), to: -step, step: step)
+	for actual in iter {
+		assert actual == curr
+		curr -= step
+	}
+}

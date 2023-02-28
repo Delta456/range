@@ -67,3 +67,11 @@ pub fn (t Builder[T]) to_array() []T {
 pub fn new[T]() Builder[T] {
 	return Builder[T]{}
 }
+
+pub fn to_array[T](builder Builder[T]) []T {
+	return builder.to_array()
+}
+
+pub fn to_iterator[T](builder Builder[T]) Range[T] {
+	return builder.to_iterator()
+}
