@@ -1,53 +1,39 @@
 module range
 
-pub struct IntRange {
-	start int = 0
-	stop  int
-	step  int = 1
+pub struct Range[T] {
+	limit T
+	step  T
+mut:
+	curr T
 }
 
-pub struct FloatRange {
-	start f32 = 1.0
-	stop  f32
-	step  f32 = 1.0
+fn (mut t Range[T]) next[T]() ?T {
+	if (t.step > 0 && t.curr >= t.limit) || (t.step < 0 && t.curr <= t.limit) {
+		return none
+	}
+	res := t.curr
+	t.curr += t.step
+	return res
 }
 
-pub fn int(range IntRange) []int {
-	mut arr := []int{}
-	if range.step == 0 {
-		eprintln('range: step cannot be zero')
-		exit(1)
+pub fn (mut t Range[T]) to_array[T]() []T {
+	mut res := []T{}
+	for v in t {
+		res << v
 	}
-	if range.start > range.stop {
-		if range.step <= -1 {
-			for i := range.start; i > range.stop; i += range.step {
-				arr << i
-			}
-		}
-	}
-	for i := range.start; i < range.stop; i += range.step {
-		arr << i
-	}
-	return arr
+	return res
 }
 
-pub fn float(float FloatRange) []f32 {
-	mut arr := []f32{}
-	if float.step == 0 {
-		eprintln('range: step cannot be zero')
-		exit(1)
+pub struct RangeOptions[T] {
+	start T
+	stop  T
+	step  T
+}
+
+pub fn range[T](opts RangeOptions[T]) Range[T] {
+	return Range[T]{
+		limit: opts.stop
+		step: opts.step
+		curr: opts.start
 	}
-	if float.start > float.stop {
-		if float.step > 0 {
-			eprintln('range: negative float step provided')
-			exit(1)
-		}
-		for i := float.start; i > float.stop; i += float.step {
-			arr << i
-		}
-	}
-	for i := float.start; i < float.stop; i += float.step {
-		arr << i
-	}
-	return arr
 }
