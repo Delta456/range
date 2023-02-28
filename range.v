@@ -47,7 +47,7 @@ pub fn (t Builder[T]) step(v T) Builder[T] {
 	}
 }
 
-pub fn (t Builder[T]) iterator() Range[T] {
+pub fn (t Builder[T]) to_iterator() Range[T] {
 	return Range[T]{
 		limit: t.to
 		step: t.step
@@ -55,9 +55,9 @@ pub fn (t Builder[T]) iterator() Range[T] {
 	}
 }
 
-pub fn (t Builder[T]) array() []T {
+pub fn (t Builder[T]) to_array() []T {
 	mut res := []T{}
-	mut it := t.iterator()
+	mut it := t.to_iterator()
 	for v in it {
 		res << v
 	}

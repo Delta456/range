@@ -2,7 +2,7 @@ module range
 
 fn test_new_array_inc_int() {
 	expected := [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-	actual := new[int]().from(0).to(10).step(1).array()
+	actual := new[int]().from(0).to(10).step(1).to_array()
 	assert actual == expected
 }
 
@@ -12,14 +12,14 @@ fn test_struct_array_inc_u8() {
 		from: 0
 		to: 10
 		step: 2
-	}.array()
+	}.to_array()
 	assert actual == expected
 }
 
 fn test_new_iterator_dec_f32() {
 	step := f32(0.1)
 	mut curr := f32(1.0)
-	iter := new[f32]().from(1.0).to(-step).step(-step).iterator()
+	iter := new[f32]().from(1.0).to(-step).step(-step).to_iterator()
 	for actual in iter {
 		assert actual == curr
 		curr -= step
@@ -33,7 +33,7 @@ fn test_struct_iterator_inc_f64() {
 		from: 0.0
 		to: 10
 		step: step
-	}.iterator()
+	}.to_iterator()
 	for actual in iter {
 		assert actual == curr
 		curr += step
