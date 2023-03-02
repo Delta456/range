@@ -1,6 +1,6 @@
 # range
 
-Functionality of Python's `range()` in V.
+Numeric ranges in V.
 
 ## Why
 
@@ -11,12 +11,13 @@ Functionality of Python's `range()` in V.
 
 ## Features
 
-- Make `range` arrays easily
+- Make `range` easily
 - Make ranges for `int` and `f32`
-- Positive as well as Negative Support!
+- Positive as well as negative support!
 - No need to write the whole for loop! (*this maybe slower than the normal one*)
 - Use `range` for functional programming
-- Full Python's `range()` functionality
+- Support iterators. Long ranges without high memory allocation.
+- Half open-open ranges `[from,to]`
 
 ## Installation
 
@@ -29,72 +30,71 @@ Functionality of Python's `range()` in V.
 
 ## Usage
 
-- `range.int(start:0, stop:value, step:1)` 
-  makes a range of `int` with the following parameters:
-  - `start`: `start` value of the range *by default it's 0*
-  - `stop`: `stop` value of the range
-  - `step`: `step` value of the range *by default it's 1*
-
-- `range.float(start:0.0, stop:value, step:1.0)` makes a range of `f32` with the following parameters:
-  - `start`: `start` value of the range *by default it's 0.0*
-  - `stop`: `stop` value of the range
-  - `step`: `step` value of the range *by default it's 1.0*
-
-**Note**: If `range.int(step:0)` or `range.float(step:0)` then an error will be raised because `step` cannot be zero.
-
-In `main.v`
+Use an iterator if you need a large range but don't want to allocate space in memory for all numbers in the range.
 
 ```v
 import delta456.range
 
-fn main() {
-    // using range.int
-    for i in range.int(stop:10) {
-        println(i)
-    }
-
-    for i in range.int(start:1, stop:10) {
-        println(i)
-    }
-
-    for i in range.int(start:1, stop:10, step:2) {
-        println(i)
-    }
-
-    for i in range.int(start:10, stop:1, step:-1) {
-        println(i)
-    }
-
-    for i in range.int(start:-5, stop:-1, step: 1) {
-        println(i)
-    }
-
-    // using range.float
-    for i in range.float(stop:10) {
-        println(i)
-    }
-
-    for i in range.float(stop:10, step:0.2) {
-        println(i)
-    }
-
-    for i in range.float(start:0.1, stop:10) {
-        println(i)
-    }
-
-    for i in range.float(start:10, stop:1.0, step:-0.2) {
-        println(i)
-    }
-
-    for i in range.float(start:-10, stop:-1.0, step:0.2) {
-        println(i)
-    }
+mut iter := range.to_iterator(from: 0, to: 1000000, step: 2)
+for v in iter {
+  println(v)
 }
 ```
 
-## Acknowledgments
+```
+$ v run main.v
+0
+2
+4
+```
 
-I thank [@Hungry Blue Dev](https://github.com/hungrybluedev) for giving me the idea of using a `struct` with default parameters so that `range` function for each type can be the same.
+Use an array when you need it and the memory allocation for all values in the range is not a problem.
+
+```v
+import delta456.range
+
+arr := range.to_array(from: 10, to: 0, step: -1)
+println(arr)
+```
+
+```
+v run main.v
+[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+```
+
+If you prefer you can use the builder syntax.
+
+```v
+mut iter := range.new[int]().from(0).to(10).step(1).to_iterator()insinstall/
+
+// or
+
+arr := range.new[int]().from(0).to(10).step(1).to_array()
+
+// or
+
+mut iter := range.Builder[int]{ from: 0, to: 10, step: 1 }.to_iterator()
+
+// or
+
+arr := range.Builder[int]{ from: 0, to: 10, step: 1 }.to_array()
+```
+
+The builder is immutable! You can reuse it as many times as you want.
+
+```v
+zero_to_nine := range.new[int]().from(0).to(10).step(1)
+
+// print from 0 to 9
+for v in zero_to_nine.to_iterator() {
+  println(v)
+}
+
+// print from 0 to 9 again, no problems
+for v in zero_to_nine.to_iterator() {
+  println(v)
+}
+```
 
 ## License
 

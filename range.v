@@ -1,53 +1,77 @@
 module range
 
-pub struct IntRange {
-	start int = 0
-	stop  int
-	step  int = 1
+struct Range[T] {
+mut:
+	limit T
+	step  T
+	curr  T
 }
 
-pub struct FloatRange {
-	start f32 = 1.0
-	stop  f32
-	step  f32 = 1.0
+fn (mut t Range[T]) next[T]() ?T {
+	if (t.step > 0 && t.curr >= t.limit) || (t.step < 0 && t.curr <= t.limit) {
+		return none
+	}
+	res := t.curr
+	t.curr += t.step
+	return res
 }
 
-pub fn int(range IntRange) []int {
-	mut arr := []int{}
-	if range.step == 0 {
-		eprintln('range: step cannot be zero')
-		exit(1)
-	}
-	if range.start > range.stop {
-		if range.step <= -1 {
-			for i := range.start; i > range.stop; i += range.step {
-				arr << i
-			}
-		}
-	}
-	for i := range.start; i < range.stop; i += range.step {
-		arr << i
-	}
-	return arr
+pub struct Builder[T] {
+pub:
+	from T
+	to   T
+	step T
 }
 
-pub fn float(float FloatRange) []f32 {
-	mut arr := []f32{}
-	if float.step == 0 {
-		eprintln('range: step cannot be zero')
-		exit(1)
+pub fn (t Builder[T]) from(v T) Builder[T] {
+	return Builder[T]{
+		from: v
+		to: t.to
+		step: t.step
 	}
-	if float.start > float.stop {
-		if float.step > 0 {
-			eprintln('range: negative float step provided')
-			exit(1)
-		}
-		for i := float.start; i > float.stop; i += float.step {
-			arr << i
-		}
+}
+
+pub fn (t Builder[T]) to(v T) Builder[T] {
+	return Builder[T]{
+		from: t.from
+		to: v
+		step: t.step
 	}
-	for i := float.start; i < float.stop; i += float.step {
-		arr << i
+}
+
+pub fn (t Builder[T]) step(v T) Builder[T] {
+	return Builder[T]{
+		from: t.from
+		to: t.to
+		step: v
 	}
-	return arr
+}
+
+pub fn (t Builder[T]) to_iterator() Range[T] {
+	return Range[T]{
+		limit: t.to
+		step: t.step
+		curr: t.from
+	}
+}
+
+pub fn (t Builder[T]) to_array() []T {
+	mut res := []T{}
+	mut it := t.to_iterator()
+	for v in it {
+		res << v
+	}
+	return res
+}
+
+pub fn new[T]() Builder[T] {
+	return Builder[T]{}
+}
+
+pub fn to_array[T](builder Builder[T]) []T {
+	return builder.to_array()
+}
+
+pub fn to_iterator[T](builder Builder[T]) Range[T] {
+	return builder.to_iterator()
 }
