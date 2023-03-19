@@ -24,7 +24,7 @@ Numeric ranges in V.
 - Via `git clone`
     - `git clone https://github.com/Delta456/range`
 - Via `v install`
-    - `v install range`
+    - `v install Delta456.range`
 - Via `vpkg`
     - `vpkg install range`
 
