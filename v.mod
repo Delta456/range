@@ -5,6 +5,6 @@ Module {
 	repo_url: 'https://github.com/Delta456/range'
 	vcs: 'git'
 	tags: ['range', 'vlang']
-	description: 'Functionality of Python's `range()` in V'
+	description: "Functionality of Python's `range()` in V"
 	license: 'MIT'
 }
