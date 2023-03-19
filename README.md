@@ -24,7 +24,7 @@ Numeric ranges in V.
 - Via `git clone`
     - `git clone https://github.com/Delta456/range`
 - Via `v install`
-    - `v install range`
+    - `v install Delta456.range`
 - Via `vpkg`
     - `vpkg install range`
 
@@ -65,7 +65,7 @@ v run main.v
 If you prefer you can use the builder syntax.
 
 ```v
-mut iter := range.new[int]().from(0).to(10).step(1).to_iterator()insinstall/
+mut iter := range.new[int]().from(0).to(10).step(1).to_iterator()
 
 // or
 
