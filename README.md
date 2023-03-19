@@ -65,7 +65,7 @@ v run main.v
 If you prefer you can use the builder syntax.
 
 ```v
-mut iter := range.new[int]().from(0).to(10).step(1).to_iterator()insinstall/
+mut iter := range.new[int]().from(0).to(10).step(1).to_iterator()
 
 // or
 
